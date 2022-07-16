@@ -1,0 +1,8 @@
+FROM adoptopenjdk/openjdk11:alpine
+EXPOSE 8761
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+RUN apk add --no-cache bash
+COPY wait-for.sh /wait-for.sh
+RUN chmod +x /wait-for.sh
+ENTRYPOINT ["/wait-for.sh", "config-service:8001", "--timeout=60", "--", "java", "-jar", "app.jar"]
