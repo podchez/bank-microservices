@@ -5,10 +5,12 @@ import com.podchez.accountservice.model.Account;
 import com.podchez.accountservice.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 
 @Service
+@Transactional(readOnly = true)
 public class AccountService {
 
     private final AccountRepository accountRepository;
@@ -23,19 +25,23 @@ public class AccountService {
                 .orElseThrow(() -> new AccountNotFoundException("There is no account with ID " + id + " in the DB"));
     }
 
+    @Transactional
     public Long save(Account account) {
         account.setCreatedAt(OffsetDateTime.now());
         return accountRepository.save(account).getId();
     }
 
-    public Account update(Long id, Account account) {
-        if (!accountRepository.existsById(id)) {
-            throw new AccountNotFoundException("There is no account with ID " + id + " in the DB");
-        }
-        account.setId(id);
-        return accountRepository.save(account);
+    @Transactional
+    public Account update(Long id, Account updatedAccount) {
+        Account oldAccount = accountRepository.findById(id)
+                .orElseThrow(() -> new AccountNotFoundException("There is no account with ID " + id + " in the DB"));
+
+        updatedAccount.setCreatedAt(oldAccount.getCreatedAt());
+        updatedAccount.setId(id);
+        return accountRepository.save(updatedAccount);
     }
 
+    @Transactional
     public Account delete(Long id) {
         Account deletedAccount = accountRepository.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException("There is no account with ID " + id + " in the DB"));

@@ -18,7 +18,5 @@ public class AccountRequestDto {
 
     private String phone;
 
-    private OffsetDateTime createdAt;
-
     private List<Long> bills;
 }
