@@ -25,7 +25,7 @@ public class AccountController {
         return convertToResponseDto(accountService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("/")
     public Long save(@RequestBody AccountRequestDto accountRequestDto) {
         return accountService.save(convertToEntity(accountRequestDto));
     }

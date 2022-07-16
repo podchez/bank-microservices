@@ -1,4 +1,4 @@
-package com.podchez.accountservice.dto;
+package com.podchez.depositservice.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +10,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AccountRequestDto {
+public class AccountResponseDto {
+
+    private Long id;
 
     private String fullName;
 
     private String email;
 
     private String phone;
+
+    private OffsetDateTime createdAt;
 
     private List<Long> bills;
 }

@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class BillController{
 
@@ -21,12 +24,19 @@ public class BillController{
         this.mapper = mapper;
     }
 
+    @GetMapping("/account/{accountId}")
+    public List<BillResponseDto> findAllByAccountId(@PathVariable Long accountId) {
+        return billService.findAllByAccountId(accountId).stream()
+                .map(this::convertToResponseDto)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/{id}")
     public BillResponseDto findById(@PathVariable Long id) {
         return convertToResponseDto(billService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("/")
     public Long save(@RequestBody BillRequestDto billRequestDto) {
         return billService.save(convertToEntity(billRequestDto));
     }
