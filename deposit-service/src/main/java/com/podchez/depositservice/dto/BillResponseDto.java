@@ -8,6 +8,8 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BillResponseDto {
 
     private Long id;
