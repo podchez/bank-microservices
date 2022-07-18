@@ -34,7 +34,20 @@ services:
     depends_on:
       - config-service
       - registry
+      - account-service-db
 
+  account-service-db:
+    container_name: account-service-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: account_service_db
+    ports:
+      - "5431:5431"
+    expose:
+      - "5431"
 
   bill-service:
     restart: on-failure
@@ -45,6 +58,20 @@ services:
     depends_on:
       - config-service
       - registry
+      - bill-service-db
+
+  bill-service-db:
+    container_name: bill-service-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bill_service_db
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
 
   deposit-service:
     restart: on-failure
@@ -55,6 +82,20 @@ services:
     depends_on:
       - config-service
       - registry
+      - deposit-service-db
+
+  deposit-service-db:
+    container_name: deposit-service-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: deposit_service_db
+    ports:
+      - "5433:5433"
+    expose:
+      - "5433"
 
   notification-service:
     restart: on-failure
