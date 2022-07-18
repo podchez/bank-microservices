@@ -30,7 +30,9 @@ Steps:
 
 ## API Documentation 📄
 http://localhost:8989/accounts/ (POST, GET, PUT, DELETE)
+
 http://localhost:8989/bills/ (POST, GET, PUT, DELETE)
+
 http://localhost:8989/deposits/ (POST)
 
 ## Architecture 📐
