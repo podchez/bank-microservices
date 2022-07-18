@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.podchez.notificationservice.config.RabbitMQConfig;
 import com.podchez.notificationservice.dto.DepositResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class DepositMessageHandler {
 
     private final JavaMailSender javaMailSender;
@@ -24,7 +26,8 @@ public class DepositMessageHandler {
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_DEPOSIT)
     public void receive(Message message) throws JsonProcessingException {
-        System.out.println(message);
+
+        log.info("IN receive - message: {}", message);
 
         String jsonBody = new String(message.getBody());
         ObjectMapper objectMapper = new ObjectMapper();
@@ -44,5 +47,7 @@ public class DepositMessageHandler {
         } catch (MailException e) {
             e.printStackTrace();
         }
+
+        log.info("IN receive - message: {} successfully sent", message);
     }
 }

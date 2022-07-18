@@ -8,6 +8,7 @@ import com.podchez.depositservice.dto.*;
 import com.podchez.depositservice.exception.DepositServiceException;
 import com.podchez.depositservice.model.Deposit;
 import com.podchez.depositservice.repository.DepositRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Service
+@Slf4j
 public class DepositService {
 
     private final static String TOPIC_EXCHANGE_DEPOSIT = "js.deposit.notify.exchange";
@@ -39,6 +41,8 @@ public class DepositService {
         Long accountId = depositRequestDto.getAccountId();
         Long billId = depositRequestDto.getBillId();
         BigDecimal amount = depositRequestDto.getAmount();
+
+        log.info("IN makeDeposit - accountId: {}, billId: {}, amount: {}" , accountId, billId, amount);
 
         if (accountId == null && billId == null) {
             throw new DepositServiceException("accountId is null and billId is null");
