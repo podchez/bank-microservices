@@ -7,7 +7,7 @@ spring:
     properties:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://192.168.0.100:5432/deposit_service_db
+    url: jdbc:postgresql://deposit-service-db:5433/deposit_service_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
