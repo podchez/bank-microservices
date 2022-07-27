@@ -32,13 +32,13 @@ Microservices with Spring Boot & Spring Cloud
 
 
 ## API Documentation 📄
-- http://localhost:8989/accounts/ (GET, POST)
+- http://localhost:8989/accounts/ (POST)
 - http://localhost:8989/accounts/{id} (GET, PUT, DELETE)
 ---
-- http://localhost:8989/bills/ (GET, POST)
+- http://localhost:8989/bills/ (POST)
 - http://localhost:8989/bills/{id} (GET, PUT, DELETE)
 ---
-- http://localhost:8989/deposits/ (GET, POST)
+- http://localhost:8989/deposits/ (POST)
 - http://localhost:8989/deposits/{id} (GET)
 
 
